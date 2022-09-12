@@ -37,7 +37,7 @@ class Rent extends Component {
       <>
         <Content
           title="Dashboard"
-          subTitle="Book Management Dashboard"
+          subTitle="Bookworm Dashboard"
           browserTitle="Dashboard"
         >
           <Row>

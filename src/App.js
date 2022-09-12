@@ -62,7 +62,7 @@ function App() {
     cookies.get('userLoggedIn') === 'true' ? (
       <>
         <AdminLTE
-          title={["Book ", "Management"]}
+          title={["Book ", "Worm"]}
           titleShort={["B", "M"]}
           theme="blue"
           sidebar={
