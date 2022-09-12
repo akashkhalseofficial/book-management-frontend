@@ -26,7 +26,6 @@ class User extends Component {
     axios.get(`${process.env.REACT_APP_API_URL}get_all_users`)
       .then(res => {
         const data = res.data;
-        console.log(data)
         this.setState({ user_data : data });
       })
   }
@@ -54,6 +53,7 @@ class User extends Component {
                   <tr>
                     <th>Id</th>
                     <th>User Name</th>
+                    <th>User Wallet</th>
                     <th>Books Rented</th>
                     <th>Books Purchased</th>
                   </tr>
@@ -63,8 +63,9 @@ class User extends Component {
                   this.state.user_data.map((p, i) => {
                     return(
                       <tr key={'d' + i}>
-                        <td>{p.id}</td>
+                        <td>{p.userid}</td>
                         <td>{p.name}</td>
+                        <td>{p.wallet}</td>
                         <td>{p.rented}</td>
                         <td>{p.purchased}</td>
                       </tr>

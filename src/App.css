@@ -79,3 +79,12 @@ input[type="submit"].disabled {
   background-color: #fdfbfb;
   padding: 2px;
 }
+
+.color-white{
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

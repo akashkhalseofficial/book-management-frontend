@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Books from "../book/books";
+import User from "../user/user";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-       {/* <Books /> */}
+       <Books />
+       <User />
       </>
     );
   }

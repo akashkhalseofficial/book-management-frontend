@@ -1,6 +1,6 @@
 import { Component } from "react";
 import axios from 'axios';
-
+import Cookies from 'universal-cookie';
 
 import AdminLTE, {
   Sidebar,
@@ -10,8 +10,8 @@ import AdminLTE, {
   Box,
   Button,
   DataTable,
-  C
 } from "adminlte-2-react";
+const cookies = new Cookies();
 
 class UserProfile extends Component {
   constructor(props) {
@@ -20,21 +20,21 @@ class UserProfile extends Component {
 
   state = {
     profile_data: {
-        name : 'Akash 1234',
-        gender : 'Male',
-        address : 'Pune',
-        wallet : 250,
-        rented : 4,
-        purchased : 3
+        name : '',
+        gender : '',
+        address : '',
+        wallet : 0,
+        rented : 0,
+        purchased : 0
     }
   }
 
   componentDidMount() {
-    // axios.get(`http://localhost:3000/parcels`)
-    //   .then(res => {
-    //     const parcels = res.data;
-    //     this.setState({ parcels });
-    //   })
+    axios.post(`${process.env.REACT_APP_API_URL}get_user` , cookies.get('userid'))
+      .then(res => {
+        const data = res.data;
+        this.setState({ user_data : data });
+      })
   }
 
   render() {
@@ -50,7 +50,6 @@ class UserProfile extends Component {
         >
           <Row>
             <Col xs={12}>
-            {/* <Home /> */}
               <Box
                 title="My Profile"
                 type="primary"

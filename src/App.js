@@ -23,6 +23,7 @@ import Books from "./book/books";
 import Book from "./book/book";
 import Cookies from 'universal-cookie';
 import UserProfile from "./user/userProfile";
+import MyShelf from "./user/myshlef";
 const cookies = new Cookies();
 
 const { Item, Header, UserPanel, Searchbar } = Sidebar;
@@ -44,8 +45,8 @@ function App() {
   ]
 
   const sidebar = [
-    <Item key="order" text="Books Shelf" to="/new-order" icon="far-folder" />,
-    <Item key="shelf" text="My Shelf" to="/" icon="far-folder" />,
+    <Item key="order" text="Books Shelf" to="/books-shelf" icon="far-folder" />,
+    <Item key="shelf" text="My Shelf" to="/my-shelf" icon="far-folder" />,
     <Item key="invoice" text="Invoices" to="/invoice" icon="far-folder" />,
     <Item key="profile" text="Profile" to="/profile" icon="far-folder" />,
     // <Item key="track" text="Contact Us" to="/contact-us" icon="far-folder" />,
@@ -58,7 +59,7 @@ function App() {
 
   return (
 
-    isSignedIn ? (
+    cookies.get('userLoggedIn') === 'true' ? (
       <>
         <AdminLTE
           title={["Book ", "Management"]}
@@ -69,17 +70,20 @@ function App() {
           }
           >
             <Navbar.Core>
-              <li style={{ "margin" : "15px;"}} onClick={(e) => {
+              <li style={{ "margin" : "15px"}} className="color-white">Welcome {cookies.get('username')}</li>
+              <li style={{ "margin" : "15px"}} className="color-white cursor-pointer" onClick={(e) => {
                           e.preventDefault();
-                          document.cookie = "userLoggedIn=false;";
+                          cookies.remove('username');
+                          cookies.remove('userLoggedIn');
+                          cookies.remove('address');
+                          cookies.remove('email');
+                          cookies.remove('name');
+                          cookies.remove('userid');
+                          cookies.remove('wallet');
                           window.location.href = "/login";
                         }}>Sign Out</li>
             </Navbar.Core>
             <Dashboard exact path="/" />
-            {/* <Parcel exact path="/parcels" />
-            <NewParcel exact path="/new_parcel" />
-            <ViewParcel exact path="/parcel/:id" />
-          <UpdateParcel exact path="/parcel/update/:id" /> */}
             <Register exact path="/register" />
             <Book exact path="/new-book" />
             <Books exact path="/books" />
@@ -87,13 +91,14 @@ function App() {
             <Books exact path="/books-rented" />
             <Books exact path="/books-purchased" />
             <Invoice exact path="/invoice" />
-            <Purchase exact path="/new-order" />
+            <Purchase exact path="/books-shelf" />
             <Purchase exact path="/confirm-order" />
             <User exact path="/users" />
             <Login exact path="/login"/>
             <ContactUs exact path="/contact-us" />
             <AboutUs exact path="/about-us" />
             <UserProfile exact path="/profile" />
+            <MyShelf exact path="/my-shelf" />
         </AdminLTE>
       </>
     ) : 

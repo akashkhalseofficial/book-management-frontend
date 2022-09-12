@@ -12,7 +12,7 @@ import AdminLTE, {
 } from "adminlte-2-react";
 
 
-class Books extends Component {
+class MyShelf extends Component {
   constructor(props) {
     super(props);
   }
@@ -36,9 +36,9 @@ class Books extends Component {
     return (
       <>
        <Content 
-              title='Books'
-              subTitle='All Books'
-              browserTitle='Books' 
+              title='My Shelf'
+              subTitle='Books in my shelf'
+              browserTitle='My Shelf' 
         >
           <Row>
             <Col xs={12}>
@@ -87,4 +87,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default MyShelf;

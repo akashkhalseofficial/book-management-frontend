@@ -1,4 +1,5 @@
 import { Component } from "react";
+import axios from 'axios';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -7,7 +8,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email : '',
+            username : '',
             password : ''
         };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -41,7 +42,7 @@ class Login extends Component {
               <div class="col col-md-6">
                       <span>Username</span>
                       <input
-                        name="email"
+                        name="username"
                         type="text"
                         className="form-control"
                         placeholder="Enter username"
@@ -77,14 +78,32 @@ class Login extends Component {
 
   login(e) {
       e.preventDefault();
-      cookies.set('username', this.state.email, { path: '/' });
-      cookies.set('userLoggedIn', 'true', { path: '/' });
-      if (this.state.email === 'admin' && this.state.password === 'admin') {
-          window.location.href = '/admin';
-      } else {
-        console.log('normal user...')
-        window.location.href = '/'
-      }
+        axios.post(`${process.env.REACT_APP_API_URL}login` , this.state)
+        .then(res => {
+          if (res.status != 200) {
+            alert('Try with correct username or password.');
+          } else {
+            if (!res.data.length) {
+              alert('Try with correct username or password.');
+            } else {
+              const data = res.data[0];
+              cookies.set('userLoggedIn', "true", { path: '/' });
+              cookies.set('address', data.address, { path: '/' });
+              cookies.set('email', data.email, { path: '/' });
+              cookies.set('name', data.name, { path: '/' });
+              cookies.set('userid', data.userid, { path: '/' });
+              cookies.set('username', data.email, { path: '/' });
+              cookies.set('wallet', data.wallet, { path: '/' });
+              if (data.username == 'admin') {
+                window.location.href = '/admin'
+              } else {
+                window.location.href = '/'
+              }
+            }
+          }
+        }).catch(e => {
+          console.log(e)
+        });
   }
 }
 

@@ -48,8 +48,8 @@ class Table extends Component {
                 title={this.state.box_title}
                 type="primary"
               >
-                <table class="table table-striped table-bordered table-hover text-center">
-                <thead class="thead-dark">
+                <table className="table table-striped table-bordered table-hover text-center">
+                <thead className="thead-dark">
                   <tr>
                     <th>Book Id</th>
                     <th>Name</th>
