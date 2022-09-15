@@ -88,3 +88,79 @@ input[type="submit"].disabled {
 .cursor-pointer {
   cursor: pointer;
 }
+
+
+.mt10 {
+  margin-right: 10px;
+}
+
+.book-tile {
+  height: 540px;
+  border-radius: 10px;
+  border: 1px solid #f5f5f5;
+  margin-bottom: 20px;
+  overflow: hidden;
+  display: block;
+}
+
+.book-tile .book-details {
+  padding: 15px;
+  background-color: #eaeaea;
+}
+
+.book-details label {
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.book-tile img{
+  width: 100%;
+  height: fit-content;
+  object-fit: cover;
+  max-height: -webkit-fill-available;
+}
+
+.book-tile .book-image {
+  height: 200px;
+}
+
+.color-edit {
+  background-color: teal !important;
+  color: #FFFFFF !important;
+  font-weight: 500 !important;
+  border: none;
+  border-radius: 7px !important;
+}
+
+.color-delete {
+  background-color: crimson !important;
+  color: #FFFFFF !important;
+  font-weight: 500 !important;
+  border: none;
+  border-radius: 7px !important;
+}
+
+.color-buy {
+  background-color: lightsalmon !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+  border: none;
+  border-radius: 7px !important;
+}
+
+.content {
+  height: 100vh;
+}
+
+.row {
+}
+
+.bg-image {
+  background-image: url("/public/images/bimage.jpg");
+}
+
+.bimage {
+  /* background-image: url("/public/images/bimage.jpg"); */
+}

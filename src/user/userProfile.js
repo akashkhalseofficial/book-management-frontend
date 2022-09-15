@@ -1,6 +1,5 @@
 import { Component } from "react";
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 
 import AdminLTE, {
   Sidebar,
@@ -11,6 +10,7 @@ import AdminLTE, {
   Button,
   DataTable,
 } from "adminlte-2-react";
+import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 class UserProfile extends Component {
@@ -30,11 +30,6 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-    axios.post(`${process.env.REACT_APP_API_URL}get_user` , cookies.get('userid'))
-      .then(res => {
-        const data = res.data;
-        this.setState({ user_data : data });
-      })
   }
 
   render() {
@@ -42,7 +37,7 @@ class UserProfile extends Component {
       return;
     else
     return (
-      <>
+      <div className="bg-image">
         <Content
           title="Profile"
           subTitle="Profile data"
@@ -55,35 +50,35 @@ class UserProfile extends Component {
                 type="primary"
               >
                 
-                <div class="col col-md-6">
-                    <span class="col col-md-6 underline">User Name</span>
-                    <label class="col col-md-6">{this.state.profile_data.name}</label>
+                <div className="col col-md-6">
+                    <span className="col col-md-6 underline">User Name</span>
+                    <label className="col col-md-6">{cookies.get("username")}</label>
                 </div>
-                <div class="col col-md-6">
-                    <span class="col col-md-6 underline">Gender</span>
-                    <label class="col col-md-6">{this.state.profile_data.gender}</label>
+                <div className="col col-md-6">
+                    <span className="col col-md-6 underline">User Email</span>
+                    <label className="col col-md-6">{cookies.get("email")}</label>
                 </div>
-                <div class="col col-md-6">
-                    <span class="col col-md-6 underline">Address</span>
-                    <label class="col col-md-6">{this.state.profile_data.address}</label>
+                <div className="col col-md-6">
+                    <span className="col col-md-6 underline">Address</span>
+                    <label className="col col-md-6">{cookies.get("address")}</label>
                 </div>
-                <div class="col col-md-6">
-                    <span class="col col-md-6 underline">Wallet Balance</span>
-                    <label class="col col-md-6">{this.state.profile_data.wallet}</label>
+                <div className="col col-md-6">
+                    <span className="col col-md-6 underline">Wallet Balance</span>
+                    <label className="col col-md-6">{cookies.get("wallet")}</label>
                 </div>
-                <div class="col col-md-6">
-                    <span class="col col-md-6 underline">Books Rented</span>
-                    <label class="col col-md-6">{this.state.profile_data.rented}</label>
+                <div className="col col-md-6">
+                    <span className="col col-md-6 underline">Books Rented</span>
+                    <label className="col col-md-6">{cookies.get("books_rented")}</label>
                 </div>
-                <div class="col col-md-6">
-                    <span class="col col-md-6 underline">Books Purchased</span>
-                    <label class="col col-md-6">{this.state.profile_data.purchased}</label>
+                <div className="col col-md-6">
+                    <span className="col col-md-6 underline">Books Purchased</span>
+                    <label className="col col-md-6">{cookies.get("books_purchased")}</label>
                 </div>
               </Box>
             </Col>
           </Row>
         </Content>
-      </>
+      </div>
     );
   }
 }

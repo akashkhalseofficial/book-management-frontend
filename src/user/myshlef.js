@@ -11,6 +11,10 @@ import AdminLTE, {
   DataTable
 } from "adminlte-2-react";
 
+import BookTile from "../book/bookTile";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 
 class MyShelf extends Component {
   constructor(props) {
@@ -22,7 +26,7 @@ class MyShelf extends Component {
   }
 
   componentDidMount() {
-     axios.get(`${process.env.REACT_APP_API_URL}get_all_books`)
+    axios.post(`${process.env.REACT_APP_API_URL}get_user_shelf/{id}?userid=` + cookies.get("userid"), cookies.get("userid"))
     .then(res => {
         const data = res.data;
         this.setState({ book_data : data });
@@ -34,55 +38,32 @@ class MyShelf extends Component {
       return;
     else
     return (
-      <>
+      <div className="bg-image">
        <Content 
               title='My Shelf'
               subTitle='Books in my shelf'
               browserTitle='My Shelf' 
+              
         >
           <Row>
             <Col xs={12}>
             <Box
-                title={this.state.box_title}
+                title="My Shelf"
                 type="primary"
               >
-                <table className="table table-striped table-bordered table-hover text-center">
-                <thead className="thead-dark">
-                  <tr>
-                    <th>Book Id</th>
-                    <th>Name</th>
-                    <th>Author</th>
-                    <th>Price</th>
-                    <th>Language</th>
-                    <th>Quantity</th>
-                    <th>Pages</th>
-                    <th>Category</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                {
-                  this.state.book_data.map((p, i) => {
-                    return(
-                      <tr key={'d' + i}>
-                        <td>{p.bid}</td>
-                        <td>{p.bname}</td>
-                        <td>{p.bauthor}</td>
-                        <td>{p.bprice}</td>
-                        <td>{p.blanguage}</td>
-                        <td>{p.bquantity}</td>
-                        <td>{p.bpages}</td>
-                        <td>{p.bcategory}</td>
-                      </tr>
-                      )
-                    })
-                  }
-                  </tbody>
-                  </table>
+                {this.state.book_data.map((p, i) => {
+                  return(
+                      <Col md={3} sm={4} xs={6}>
+                        <BookTile book_data={p}/>
+                      </Col>
+                    )
+                  })
+                }
               </Box>
             </Col>
           </Row>
         </Content>
-      </>
+      </div>
     );
   }
 }

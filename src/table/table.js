@@ -36,7 +36,7 @@ class Table extends Component {
       return;
     else
     return (
-      <>
+      <div className="bg-image">
         <Content
           title={this.state.table_title}
           subTitle={this.state.table_subtitle}
@@ -84,7 +84,7 @@ class Table extends Component {
             </Col>
           </Row>
         </Content>
-      </>
+      </div>
     );
   }
 }

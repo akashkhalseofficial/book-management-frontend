@@ -10,7 +10,9 @@ import AdminLTE, {
   Button,
   DataTable
 } from "adminlte-2-react";
-
+import BookTile from "./bookTile";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 class Books extends Component {
   constructor(props) {
@@ -29,60 +31,73 @@ class Books extends Component {
     });
   }
 
+  edit(id) {
+    console.log(id)
+    window.location.href = "/book/edit/" + id;
+  }
+
+  buy(id) {
+    console.log(id)
+    window.location.href = "/book/buy/" + id;
+  }
+
+  delete(id) {
+    console.log(id)
+    if(window.confirm("Please confirm to delete ?")) {
+      axios.delete(`${process.env.REACT_APP_API_URL}delete_book/` + id)
+      .then(res => {
+          const data = res.data;
+          if(res.status === 200) {
+            alert("Book deleted successfully...!")
+            window.location.reload();
+          }
+      });
+    }
+  }
+
   render() {
     if(!this.state.book_data) 
       return;
     else
     return (
-      <>
-       <Content 
-              title='Books'
+      <div className="bg-image">
+       <Content
+              title='Books Shelf'
               subTitle='All Books'
-              browserTitle='Books' 
+              browserTitle='Books Shelf' 
         >
-          <Row>
-            <Col xs={12}>
             <Box
-                title={this.state.box_title}
-                type="primary"
-              >
-                <table className="table table-striped table-bordered table-hover text-center">
-                <thead className="thead-dark">
-                  <tr>
-                    <th>Book Id</th>
-                    <th>Name</th>
-                    <th>Author</th>
-                    <th>Price</th>
-                    <th>Language</th>
-                    <th>Quantity</th>
-                    <th>Pages</th>
-                    <th>Category</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                {
-                  this.state.book_data.map((p, i) => {
-                    return(
-                      <tr key={'d' + i}>
-                        <td>{p.bid}</td>
-                        <td>{p.bname}</td>
-                        <td>{p.bauthor}</td>
-                        <td>{p.bprice}</td>
-                        <td>{p.blanguage}</td>
-                        <td>{p.bquantity}</td>
-                        <td>{p.bpages}</td>
-                        <td>{p.bcategory}</td>
-                      </tr>
-                      )
-                    })
-                  }
-                  </tbody>
-                  </table>
+                title='Books Shelf'
+                >
+                {this.state.book_data.map((p, i) => {
+                  return(
+                      <Col md={3} sm={4} xs={6}>
+                        <BookTile book_data={p}/>
+                        <Col className="text-left">
+                          {
+                            cookies.get("username") === 'admin' 
+                            ? <>
+                              <Button name="edit" value="Edit" text="Edit" className="color-edit" onClick={(e) => {
+                              this.edit(p.id)
+                              }}></Button>
+                                  <Button name="delete" value="Delete" text="Delete" className="color-delete" onClick={(e) => {
+                                  this.delete(p.id)
+                              }}></Button>
+                              </> 
+                            : <>
+                              <Button name="buy" value="Buy" text="Buy" className="color-buy" onClick={(e) => {
+                              this.buy(p.id)
+                              }}></Button>
+                            </>
+                          }
+                        </Col>
+                      </Col>
+                    )
+                  })
+                }
               </Box>
-            </Col>
-          </Row>
         </Content>
-      </>
+      </div>
     );
   }
 }

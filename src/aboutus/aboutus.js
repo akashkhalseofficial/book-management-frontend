@@ -34,7 +34,7 @@ class AboutUs extends Component {
       return;
     else
     return (
-      <>
+      <div className="bg-image">
         <Content
           title="Dashboard"
           subTitle="Bookworm Dashboard"
@@ -52,7 +52,7 @@ class AboutUs extends Component {
             </Col>
           </Row>
         </Content>
-      </>
+      </div>
     );
   }
 }

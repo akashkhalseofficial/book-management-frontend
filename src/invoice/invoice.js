@@ -12,6 +12,8 @@ import AdminLTE, {
   DataTable,
   C
 } from "adminlte-2-react";
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 class Invoice extends Component {
   constructor(props) {
@@ -19,45 +21,26 @@ class Invoice extends Component {
   }
 
   state = {
-    invoice_data: [
-      {
-        orderid : 1223,
-        name : 'Lord of the Rings',
-        category : 'Text Book',
-        date : '3241324',
-        quantity : 5,
-        price : '125'
-      },{
-        orderid : 1223,
-        name : 'Lord of the Rings',
-        category : 'Text Book',
-        date : '3241324',
-        quantity : 5,
-        price : '125'
-      },{
-        orderid : 1223,
-        name : 'Lord of the Rings',
-        category : 'Text Book',
-        date : '3241324',
-        quantity : 5,
-        price : '125'
-      },{
-        orderid : 1223,
-        name : 'Lord of the Rings',
-        category : 'Text Book',
-        date : '3241324',
-        quantity : 5,
-        price : '125'
-      }
-    ]
+    invoice_data: [],
+    book_data : []
   }
 
   componentDidMount() {
-    // axios.get(`http://localhost:3000/parcels`)
-    //   .then(res => {
-    //     const parcels = res.data;
-    //     this.setState({ parcels });
-    //   })
+    axios.post(`${process.env.REACT_APP_API_URL}get_invoices/{id}?userid=` + cookies.get("userid"), cookies.get("userid"))
+    .then(res => {
+        const data = res.data;
+        // for (let index = 0; index < res.data.length; index++) {
+        //   const element = array[index];
+        //   axios.get(`${process.env.REACT_APP_API_URL}get_?userid=` + cookies.get("userid"), cookies.get("userid"))
+        //     .then(res => {
+        //         const data = res.data;
+        //         this.setState({ invoice_data : data });
+        //     });
+        // }
+        this.setState({ invoice_data : data });
+    }).catch ( e => {
+      console.log(e)
+    })
   }
 
   render() {
@@ -65,7 +48,7 @@ class Invoice extends Component {
       return;
     else
     return (
-      <>
+      <div className="bg-image">
         <Content
           title="Dashboard"
           subTitle="Bookworm Dashboard"
@@ -73,7 +56,6 @@ class Invoice extends Component {
         >
           <Row>
             <Col xs={12}>
-            {/* <Home /> */}
               <Box
                 title="Invoices"
                 type="primary"
@@ -82,28 +64,24 @@ class Invoice extends Component {
                   this.state.invoice_data.map((p, i) => {
                     return(
                       <Box
-                        title={p.orderid}
+                        title={p.id}
                         type="secondary"
                         collapsable="true">
-                         <div class="col col-md-6">
-                          <span class="col col-md-6 underline">Book Name</span>
-                          <label class="col col-md-6">{p.name}</label>
+                         <div className="col col-md-6">
+                          <span className="col col-md-6 underline">Invoice Id</span>
+                          <label className="col col-md-6">{p.id}</label>
                         </div>
-                        <div class="col col-md-6">
-                          <span class="col col-md-6 underline">Book Category</span>
-                          <label class="col col-md-6">{p.category}</label>
+                        <div className="col col-md-6">
+                          <span className="col col-md-6 underline">Book Id</span>
+                          <label className="col col-md-6">{p.bids}</label>
                         </div>
-                        <div class="col col-md-6">
-                          <span class="col col-md-6 underline">Purchase Data</span>
-                          <label class="col col-md-6">{p.date}</label>
+                        <div className="col col-md-6">
+                          <span className="col col-md-6 underline">Purchase Type</span>
+                          <label className="col col-md-6">{p.purchaseType}</label>
                         </div>
-                        <div class="col col-md-6">
-                          <span class="col col-md-6 underline">Book Quantity</span>
-                          <label class="col col-md-6">{p.quantity}</label>
-                        </div>
-                        <div class="col col-md-6">
-                          <span class="col col-md-6 underline">Book Price</span>
-                          <label class="col col-md-6">{p.price}</label>
+                        <div className="col col-md-6">
+                          <span className="col col-md-6 underline">Total Order Cost</span>
+                          <label className="col col-md-6">{p.totalordercost}</label>
                         </div>
                       </Box>
                       )
@@ -113,7 +91,7 @@ class Invoice extends Component {
             </Col>
           </Row>
         </Content>
-      </>
+      </div>
     );
   }
 }

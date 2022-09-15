@@ -21,9 +21,13 @@ import Invoice from "./invoice/invoice";
 import Purchase from "./purchase/purchase";
 import Books from "./book/books";
 import Book from "./book/book";
-import Cookies from 'universal-cookie';
 import UserProfile from "./user/userProfile";
 import MyShelf from "./user/myshlef";
+import PurchaseConfirm from "./purchase/purchaseConfirm";
+import EditBook from "./book/editbook"; 
+import AudioBooks from "./book/audiobooks";
+import TextBooks from "./book/textbooks";
+import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 const { Item, Header, UserPanel, Searchbar } = Sidebar;
@@ -40,8 +44,8 @@ function App() {
     <Item key="books" text="Books" to="/books" icon="far-folder" />,
     <Item key="new_book" text="Add new Book" to="/new-book" icon="far-folder" />,
     <Item key="users" text="Users" to="/users" icon="far-folder" />,
-    <Item key="books_rented" text="Books Rented" to="/books-rented" icon="far-folder" />,
-    <Item key="books_purchased" text="Books Purchased" to="/books-purchased" icon="far-folder" />,
+    <Item key="textbooks" text="Textbooks" to="/text-books" icon="far-folder" />,
+    <Item key="audiobooks" text="Audiobooks" to="/audio-books" icon="far-folder" />,
   ]
 
   const sidebar = [
@@ -49,14 +53,17 @@ function App() {
     <Item key="shelf" text="My Shelf" to="/my-shelf" icon="far-folder" />,
     <Item key="invoice" text="Invoices" to="/invoice" icon="far-folder" />,
     <Item key="profile" text="Profile" to="/profile" icon="far-folder" />,
-    // <Item key="track" text="Contact Us" to="/contact-us" icon="far-folder" />,
-    // <Item key="track" text="About Us" to="/about-us" icon="far-folder" />
+    <Item key="textbooks" text="Textbooks" to="/text-books" icon="far-folder" />,
+    <Item key="audiobooks" text="Audiobooks" to="/audio-books" icon="far-folder" />,
   ];
 
-  const userPanel = [
-
-  ]
-
+  const normalUser = [
+    <Item key="login" text="Login" to="/login" icon="far-folder" />,
+    <Item key="register" text="Register" to="/register" icon="far-folder" />,
+    <Item key="about-us" text="About us" to="/about-us" icon="far-folder" />,
+    <Item key="contact-us" text="Contact us" to="/contact-us" icon="far-folder" />,
+  ];
+  
   return (
 
     cookies.get('userLoggedIn') === 'true' ? (
@@ -66,7 +73,7 @@ function App() {
           titleShort={["B", "M"]}
           theme="blue"
           sidebar={
-            cookies.get('username') === 'admin' ? adminSidebar : sidebar
+            cookies.get('username').indexOf('admin') >= 0 ? adminSidebar : sidebar
           }
           >
             <Navbar.Core>
@@ -87,23 +94,36 @@ function App() {
             <Register exact path="/register" />
             <Book exact path="/new-book" />
             <Books exact path="/books" />
-            <Books exact path="/books" />
+            <EditBook exact path="/book/edit/:id" />
+            <PurchaseConfirm exact path="/book/buy/:id" />
             <Books exact path="/books-rented" />
             <Books exact path="/books-purchased" />
             <Invoice exact path="/invoice" />
             <Purchase exact path="/books-shelf" />
             <Purchase exact path="/confirm-order" />
             <User exact path="/users" />
-            <Login exact path="/login"/>
             <ContactUs exact path="/contact-us" />
             <AboutUs exact path="/about-us" />
             <UserProfile exact path="/profile" />
             <MyShelf exact path="/my-shelf" />
+            <TextBooks exact path="/text-books" />
+            <AudioBooks exact path="/audio-books" />
         </AdminLTE>
       </>
-    ) : 
-    <Login exact path="/login" />
-
+    )    : (
+    <AdminLTE
+          title={["Book ", "Worm"]}
+          titleShort={["B", "M"]}
+          theme="blue"
+          sidebar={
+            normalUser
+          }
+          >
+            <Login exact path="/"/>
+            <Login exact path="/login"/>
+            <Register exact path="/register"/>
+          </AdminLTE>
+    )
   );
 }
 

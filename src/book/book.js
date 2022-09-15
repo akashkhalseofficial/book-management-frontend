@@ -14,13 +14,14 @@ class Book extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bname: "",
-      bauthor: "",
-      bprice: "",
-      blanguage: "",
-      bquantity: "",
-      bpages: "",
-      bcategory: "",
+      "name": "",
+      "language": "",
+      "category": "",
+      "author": "",
+      "image": "",
+      "pages": 0,
+      "price": 0,
+      "stock": 0
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,7 +29,7 @@ class Book extends Component {
 
   render() {
     return (
-      <>
+      <div className="bg-image">
         <Content
           title="Dashboard"
           subTitle="Courier Dashboard"
@@ -40,71 +41,81 @@ class Book extends Component {
                 title="New Book"
                 type="primary">
                 <form>
-                  <div class="form-row">
-                    <div class="col col-md-6">
+                  <div className="form-row">
+                    <div className="col col-md-6">
                       <span>Book Name</span>
                       <input
-                        name="bname"
+                        name="name"
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Name"
                         onChange={this.handleInputChange}
                       />
                     </div>
-                    <div class="col col-md-6">
+                    <div className="col col-md-6">
                       <span>Book Author</span>
                       <input
-                        name="bauthor"
+                        name="author"
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Author"
                         onChange={this.handleInputChange}
                       />
                     </div>
-                    <div class="col col-md-6">
+                    <div className="col col-md-6">
+                      <span>Book Image Name</span>
+                      <input
+                        name="image"
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Book image name"
+                        onChange={this.handleInputChange}
+                      />
+                    </div>
+                    <div className="col col-md-6">
                       <span>Book Price</span>
                       <input
-                        name="bprice"
+                        name="price"
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Price"
                         onChange={this.handleInputChange}
                       />
                     </div>
-                    <div class="col col-md-6">
+                    <div className="col col-md-6">
                       <span>Book Language</span>
                       <input
-                        name="blanguage"
+                        name="language"
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Language"
                         onChange={this.handleInputChange}
                       />
                     </div>
-                    <div class="col col-md-6">
+                    <div className="col col-md-6">
                       <span>Book Quantity</span>
                       <input
-                        name="bquantity"
+                        name="stock"
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Quantity"
                         onChange={this.handleInputChange}
                       />
                     </div>
-                    <div class="col col-md-6">
+                    <div className="col col-md-6">
                       <span>Book Pages</span>
                       <input
-                        name="bpages"
+                        name="pages"
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Pages"
                         onChange={this.handleInputChange}
                       />
                     </div>
-                    <div class="col col-md-6">
+                    <div className="col col-md-6">
                       <span>Book Category</span>
                       <input
-                        name="bcategory"
+                        name="category"
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Category"
@@ -112,7 +123,7 @@ class Book extends Component {
                       />
                     </div>
                   </div>
-                  <div class="col-md-12">
+                  <div className="col-md-12">
                     <input
                       type="submit"
                       onClick={(e) => {
@@ -134,14 +145,13 @@ class Book extends Component {
             </Col>
           </Row>
         </Content>
-      </>
+      </div>
     );
   }
 
   handleInputChange(event) {
     const target = event.target;
     const name = target.name;
-    console.log(name);
     this.setState({
       [name]: event.target.value,
     });
@@ -149,20 +159,41 @@ class Book extends Component {
 
   saveBook(event) {
     event.preventDefault();
-    let payload = this.state;
-    if (!(parseInt(payload.bprice) && parseInt(payload.bquantity) && parseInt(payload.bpages))) {
+    let payload = {
+      name: this.state.name,
+      language: this.state.language,
+      category: this.state.category,
+      author:this.state.author,
+      image: this.state.image,
+      pages: this.state.pages,
+      price: this.state.price,
+      stock: this.state.stock,
+      booksStock: {
+        category: this.state.category,
+        stock: this.state.stock,
+        image: this.state.image,
+      }
+    };
+    if (!(parseInt(payload.price) && parseInt(payload.stock) && parseInt(payload.pages))) {
       alert('Price Quantity and Pages must be numbers');
     } else {
-      payload.bprice = parseInt(this.state.bprice);
-      payload.bquantity = parseInt(this.state.bquantity);
-      payload.bpages = parseInt(this.state.bpages);
-      axios.get(`${process.env.REACT_APP_API_URL}add_new_book`, payload)
+      payload.price = parseInt(this.state.price);
+      payload.stock = payload.booksStock.stock = parseInt(this.state.stock);
+      payload.pages = parseInt(this.state.pages);
+      console.log(payload);
+      axios.post(`${process.env.REACT_APP_API_URL}add_new_book`, payload)
       .then(res => {
-          if (res.status === 200) {
-              alert(res.data);
-              window.location.href = '/books';
+          if (res.status === 201) {
+              console.log(res.data);
+              if(payload.category.toLowerCase() === 'textbook') {
+                window.location.href = '/text-books';
+              }
+              else {
+                window.location.href = '/audio-books';
+
+              }
           }
-      })
+      }).catch(e => console.log(e))
     }
   }
 }

@@ -35,7 +35,7 @@ class User extends Component {
       return;
     else
     return (
-      <>
+      <div className="bg-image">
         <Content
           title="Users"
           subTitle="All users"
@@ -43,13 +43,12 @@ class User extends Component {
         >
           <Row>
             <Col xs={12}>
-            {/* <Home /> */}
               <Box
                 title="All User Data"
                 type="primary"
               >
-                <table class="table table-striped table-bordered table-hover text-center">
-                <thead class="thead-dark">
+                <table className="table table-striped table-bordered table-hover text-center">
+                <thead className="thead-dark">
                   <tr>
                     <th>Id</th>
                     <th>User Name</th>
@@ -63,7 +62,7 @@ class User extends Component {
                   this.state.user_data.map((p, i) => {
                     return(
                       <tr key={'d' + i}>
-                        <td>{p.userid}</td>
+                        <td>{p.id}</td>
                         <td>{p.name}</td>
                         <td>{p.wallet}</td>
                         <td>{p.rented}</td>
@@ -78,7 +77,7 @@ class User extends Component {
             </Col>
           </Row>
         </Content>
-      </>
+      </div>
     );
   }
 }
