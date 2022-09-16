@@ -50,18 +50,19 @@ class PurchaseConfirm extends Component {
     const name = target.name;
     this.setState({
         [name] : event.target.value
-    })
+    });
 
-    // debugger
     let quantity = parseInt(document.getElementsByName("quantity")[0].value);
     let p = parseInt(this.state.book_data.price * quantity);
-    if(document.getElementsByName("order")[0].value === 'rent') {
-      // document.getElementsByName("total_order_price")[0].value = parseInt(p / 10);
+    let order = "rent"
+    if(document.getElementsByName("order")[0].checked) {
+      order = "rent";
       this.setState({
         total_order_price : parseInt(p / 10)
       })
-    } else {
-      // document.getElementsByName("total_order_price")[0].value = parseInt(p * quantity);
+    }
+    if(document.getElementsByName("order")[1].checked) {
+      order = "purchase";
       this.setState({
         total_order_price : parseInt(p)
       })
@@ -77,8 +78,13 @@ class PurchaseConfirm extends Component {
     }
     let quantity = parseInt(document.getElementsByName("quantity")[0].value)
     let total_order_price = parseInt(document.getElementsByName("total_order_price")[0].value)
-    let order = document.getElementsByName("order")[0].value
-
+    let order = "rent"
+    if(document.getElementsByName("order")[0].checked) {
+      order = "rent"
+    }
+    if(document.getElementsByName("order")[1].checked) {
+      order = "purchase"
+    }
     let userid = parseInt(cookies.get('userid'));
     let books_purchased = 0;
     let books_rented = 0;
