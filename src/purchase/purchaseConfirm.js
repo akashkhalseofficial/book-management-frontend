@@ -28,7 +28,7 @@ class PurchaseConfirm extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${process.env.REACT_APP_API_URL}get_book/${this.props.match.params.id}`)
+    axios.post(`${process.env.REACT_APP_API_URL}get_book?id=` + this.props.match.params.id , this.props.match.params.id)
     .then(res => {
         const data = res.data;
         this.setState({ book_data : data });
@@ -239,7 +239,7 @@ class PurchaseConfirm extends Component {
                       />
                     </div>
                     <div className="col col-md-6">
-                      <span>Rent</span>
+                      <span>Rent ( For 7 days )</span>
                       <input
                         style={{'marginLeft' : '10px'}}
                         readOnly="true"

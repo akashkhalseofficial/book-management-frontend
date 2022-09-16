@@ -22,15 +22,30 @@ class MyShelf extends Component {
   }
 
   state = {
-    book_data: []
+    book_data: [],
+    bid_data: []
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    let book_data = []
     axios.post(`${process.env.REACT_APP_API_URL}get_user_shelf/{id}?userid=` + cookies.get("userid"), cookies.get("userid"))
-    .then(res => {
-        const data = res.data;
-        this.setState({ book_data : data });
+    .then(async res => {
+      const data = res.data;
+      book_data = res.data;
+      for (let index = 0; index < book_data.length; index++) {
+        let bid_data = [];
+        let book = await this.getBookData(book_data[index]['bids'])
+          bid_data.push(book.data)
+          if(index == book_data.length - 1) {
+            this.setState({ book_data : book_data })
+            this.setState({ bid_data : bid_data });
+          }
+      }
     });
+  }
+
+  getBookData(bid) {
+    return axios.post(`${process.env.REACT_APP_API_URL}get_book?Id=`+bid , bid).then( r => r)
   }
 
   render() {
@@ -51,7 +66,7 @@ class MyShelf extends Component {
                 title="My Shelf"
                 type="primary"
               >
-                {this.state.book_data.map((p, i) => {
+                {this.state.bid_data.map((p, i) => {
                   return(
                       <Col md={3} sm={4} xs={6}>
                         <BookTile book_data={p}/>

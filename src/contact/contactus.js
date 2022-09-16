@@ -22,17 +22,9 @@ class Contact extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3000/parcels`)
-      .then(res => {
-        const parcels = res.data;
-        this.setState({ parcels });
-      })
   }
 
   render() {
-    if(!this.state.parcels || !this.state.parcels.length) 
-      return;
-    else
     return (
       <div className="bg-image">
         <Content
@@ -42,12 +34,11 @@ class Contact extends Component {
         >
           <Row>
             <Col xs={12}>
-            {/* <Home /> */}
               <Box
                 title="Parcel Data"
                 type="primary"
               >
-                <div>Contact</div>
+                <div>Contact Us</div>
               </Box>
             </Col>
           </Row>

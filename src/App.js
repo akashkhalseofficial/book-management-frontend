@@ -46,6 +46,8 @@ function App() {
     <Item key="users" text="Users" to="/users" icon="far-folder" />,
     <Item key="textbooks" text="Textbooks" to="/text-books" icon="far-folder" />,
     <Item key="audiobooks" text="Audiobooks" to="/audio-books" icon="far-folder" />,
+    <Item key="about-us" text="About us" to="/about-us" icon="far-folder" />,
+    <Item key="contact-us" text="Contact us" to="/contact-us" icon="far-folder" />,
   ]
 
   const sidebar = [
@@ -55,6 +57,8 @@ function App() {
     <Item key="profile" text="Profile" to="/profile" icon="far-folder" />,
     <Item key="textbooks" text="Textbooks" to="/text-books" icon="far-folder" />,
     <Item key="audiobooks" text="Audiobooks" to="/audio-books" icon="far-folder" />,
+    <Item key="about-us" text="About us" to="/about-us" icon="far-folder" />,
+    <Item key="contact-us" text="Contact us" to="/contact-us" icon="far-folder" />,
   ];
 
   const normalUser = [
@@ -103,7 +107,7 @@ function App() {
             <Purchase exact path="/confirm-order" />
             <User exact path="/users" />
             <ContactUs exact path="/contact-us" />
-            <AboutUs exact path="/about-us" />
+            <AboutUs   exact path="/about-us" />
             <UserProfile exact path="/profile" />
             <MyShelf exact path="/my-shelf" />
             <TextBooks exact path="/text-books" />

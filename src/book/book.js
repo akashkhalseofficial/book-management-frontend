@@ -122,6 +122,12 @@ class Book extends Component {
                         onChange={this.handleInputChange}
                       />
                     </div>
+                    {/* <div>
+                    <input type="file" onChange={this.onFileChange} />
+                      <button onClick={this.onFileUpload}>
+                        Upload!
+                      </button>
+                    </div> */}
                   </div>
                   <div className="col-md-12">
                     <input
@@ -148,6 +154,22 @@ class Book extends Component {
       </div>
     );
   }
+
+  // onFileChange = event => {
+  //   this.setState({ selectedFile: event.target.files[0] });  
+  // };
+  
+  // onFileUpload = () => {
+  //     const formData = new FormData();
+  //   formData.append(
+  //     "myFile",
+  //     this.state.selectedFile,
+  //     this.state.selectedFile.name
+  //   );
+    
+  //     console.log(this.state.selectedFile);
+  //   // axios.post("api/uploadfile", formData);
+  // };
 
   handleInputChange(event) {
     const target = event.target;

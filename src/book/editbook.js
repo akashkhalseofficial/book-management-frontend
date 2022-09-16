@@ -23,7 +23,7 @@ class EditBook extends Component {
 
   componentDidMount() {
     var self = this;
-    axios.get(`${process.env.REACT_APP_API_URL}get_book/${this.props.match.params.id}`)
+    axios.post(`${process.env.REACT_APP_API_URL}get_book?id=` + this.props.match.params.id , this.props.match.params.id)
     .then(res => {
         self.setState({...res.data});
     });
@@ -46,9 +46,11 @@ class EditBook extends Component {
         pages: this.state.pages,
         price: this.state.price,
         stock: this.state.stock,
+        image: this.state.image,
         booksStock: {
           category: this.state.category,
-          stock: this.state.stock
+          stock: this.state.stock,
+          image: this.state.image
         }
       };
       if (!(parseInt(payload.price) && parseInt(payload.stock) && parseInt(payload.pages))) {
