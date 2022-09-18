@@ -127,6 +127,28 @@ class EditBook extends Component {
                       />
                     </div>
                     <div className="col col-md-6">
+                      <span>Book Image</span>
+                      <input
+                        value={this.state.image}
+                        name="image"
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Book Id"
+                        onChange={this.handleInputChange}
+                      />
+                    </div>
+                    <div className="col col-md-6">
+                      <span>Book Price</span>
+                      <input
+                        value={this.state.price}
+                        name="price"
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Book Quantity"
+                        onChange={this.handleInputChange}
+                      />
+                    </div>
+                    <div className="col col-md-6">
                       <span>Book Language</span>
                       <input
                         value={this.state.language}
@@ -134,6 +156,17 @@ class EditBook extends Component {
                         type="text"
                         className="form-control"
                         placeholder="Enter Book Language"
+                        onChange={this.handleInputChange}
+                      />
+                    </div>
+                    <div className="col col-md-6">
+                      <span>Book Stock</span>
+                      <input
+                        value={this.state.stock}
+                        name="stock"
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter Book Stock"
                         onChange={this.handleInputChange}
                       />
                     </div>  
@@ -159,17 +192,7 @@ class EditBook extends Component {
                         onChange={this.handleInputChange}
                       />
                     </div>
-                    <div className="col col-md-6">
-                      <span>Book Price</span>
-                      <input
-                        value={this.state.price}
-                        name="price"
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter Book Quantity"
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
+                    
                   </div>
                   <div className="col-md-12">
                     <input

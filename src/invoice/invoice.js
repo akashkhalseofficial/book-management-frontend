@@ -66,10 +66,18 @@ class Invoice extends Component {
                       <Box
                         title={p.id}
                         type="secondary"
-                        collapsable="true">
-                         <div className="col col-md-6">
+                        collapsable="true"  key={i+'books'}>
+                        <div className="col col-md-6">
                           <span className="col col-md-6 underline">Invoice Id</span>
                           <label className="col col-md-6">{p.id}</label>
+                        </div>
+                        <div className="col col-md-6">
+                          <span className="col col-md-6 underline">User email</span>
+                          <label className="col col-md-6">{p.useremail}</label>
+                        </div>
+                        <div className="col col-md-6">
+                          <span className="col col-md-6 underline">User address</span>
+                          <label className="col col-md-6">{p.useraddress}</label>
                         </div>
                         <div className="col col-md-6">
                           <span className="col col-md-6 underline">Book Id</span>

@@ -57,7 +57,7 @@ class Purchase extends Component {
               >
                 {this.state.book_data.map((p, i) => {
                   return(
-                      <Col md={3} sm={4} xs={6}>
+                      <Col md={3} sm={4} xs={6}  key={i+'books'}>
                         <BookTile book_data={p}/>
                         <Col className="text-left">
                           {

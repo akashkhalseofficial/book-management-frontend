@@ -32,13 +32,15 @@ class MyShelf extends Component {
     .then(async res => {
       const data = res.data;
       book_data = res.data;
+      let bid_data = [];
+      let book = [];
       for (let index = 0; index < book_data.length; index++) {
-        let bid_data = [];
-        let book = await this.getBookData(book_data[index]['bids'])
+        book = await this.getBookData(book_data[index]['bids'])
           bid_data.push(book.data)
           if(index == book_data.length - 1) {
             this.setState({ book_data : book_data })
             this.setState({ bid_data : bid_data });
+            console.log(this.state.bid_data)
           }
       }
     });
@@ -49,7 +51,7 @@ class MyShelf extends Component {
   }
 
   render() {
-    if(!this.state.book_data) 
+    if(!this.state.bid_data) 
       return;
     else
     return (
@@ -68,7 +70,7 @@ class MyShelf extends Component {
               >
                 {this.state.bid_data.map((p, i) => {
                   return(
-                      <Col md={3} sm={4} xs={6}>
+                      <Col md={3} sm={4} xs={6}  key={i+'books'}>
                         <BookTile book_data={p}/>
                       </Col>
                     )

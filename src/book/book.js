@@ -93,12 +93,12 @@ class Book extends Component {
                       />
                     </div>
                     <div className="col col-md-6">
-                      <span>Book Quantity</span>
+                      <span>Book Stock</span>
                       <input
                         name="stock"
                         type="text"
                         className="form-control"
-                        placeholder="Enter Book Quantity"
+                        placeholder="Enter Book Stock"
                         onChange={this.handleInputChange}
                       />
                     </div>
@@ -143,7 +143,7 @@ class Book extends Component {
                         onClick={(e) => {
                           this.saveBook(e);
                         }}
-                        value="Save Book"
+                        value="Add Book"
                       />
                   </div>
                 </form>

@@ -12,7 +12,9 @@ import AdminLTE, {
 } from "adminlte-2-react";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import moment from "moment";
 const cookies = new Cookies();
+const m = moment();
 
 class PurchaseConfirm extends Component {
   constructor(props) {
@@ -88,16 +90,19 @@ class PurchaseConfirm extends Component {
     let userid = parseInt(cookies.get('userid'));
     let books_purchased = 0;
     let books_rented = 0;
+    let ordered = m.format();
     let payload = {
       quantity: quantity,
       totalorderprice: total_order_price,
       bid : this.state.book_data.id,
       userid: userid,
       image: this.state.book_data.image,
+      ordered : ordered,
       orderDetails: {
         bid: this.state.book_data.id,
         purchaseType: order,
         image: this.state.book_data.image,
+        ordered : ordered
       },
       invoices: {
         bids: this.state.book_data.id,
@@ -105,6 +110,10 @@ class PurchaseConfirm extends Component {
         totalordercost: total_order_price,
         purchaseType: order,
         image: this.state.book_data.image,
+        username : cookies.get("username"),
+        useremail : cookies.get("email"),
+        useraddress : cookies.get("address"),
+        ordered : ordered
       },
       userShelf: {
         bids: this.state.book_data.id,
@@ -112,6 +121,8 @@ class PurchaseConfirm extends Component {
         booksRented: books_rented,
         booksPurchased: books_purchased,
         image: this.state.book_data.image,
+        rentType: order,
+        ordered : ordered
       }
     }
     if (order === 'rent') {
@@ -119,12 +130,14 @@ class PurchaseConfirm extends Component {
         bid: this.state.book_data.id,
         userid: userid,
         image: this.state.book_data.image,
+        ordered: ordered
       }
     } else {
       payload['booksPurchased'] = {
         bid: this.state.book_data.id,
         userid: userid,
         image: this.state.book_data.image,
+        ordered: ordered
       }
     }
 
